@@ -1,5 +1,7 @@
 # svelte-calendar
 
+A fork of svelte-calendar, as the origin project seemed pretty inactive (basically dead).
+
 A small date picker built with Svelte 3. Demo available here: [demo page].
 
 ## Installation
@@ -124,26 +126,34 @@ This prop allows you to style the div which wraps the Datepicker component.  Thi
 
 ## Developing/Modifying Svelte-Calendar Guide
 
-*Note that you will need to have [Node.js] installed.*
-
-Install the dependencies...
+Getting started is as easy as forking, installing, and starting the snowpack dev server.
 
 ```bash
+git clone https://github.com/Phaqui/svelte-calendar.git
 cd svelte-calendar
 npm install
-```
-
-...then start [Rollup]:
-
-```bash
 npm run dev
 ```
 
-Navigate to [localhost:5000]. You should see your app running. Edit a component file in `src`, save it, and your browser will reload the page so you can see your changes automatically.
+(Note that installing dependencies, as well as the first start may take some time, as well as loading the
+page may take some time.)
+
+Head to [localhost:8000] in your browser. It should open automatically.
+You should see the demo page running. Edit a component file in `src`, save it, and your browser will reload the page so you can see your changes automatically.
+
+
+## Contributing
+
+Do feel free to apply your patches, suggestions and PRs to the [upstream] as well as this fork. However, don't be surprised if
+upstream doesn't react. After all, the only reason this fork exists, is to try to resurrect this project. If at some time the
+upstream comes back alive, I'd be happy to help merge any changes back.
+
+
 
 [demo page]: https://6edesign.github.io/svelte-calendar/
 [`timeUtils`]: https://github.com/6eDesign/timeUtils
 [`Date`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
 [Node.js]: https://nodejs.org
 [Rollup]: https://rollupjs.org
-[localhost:5000]: http://localhost:5000
+[localhost:8000]: http://localhost:8000
+[upstream]: https://6edesign.github.io/svelte-calendar/
