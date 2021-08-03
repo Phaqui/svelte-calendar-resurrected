@@ -1,0 +1,10 @@
+// [snowpack] add styles to the page (skip if no document exists)
+if (typeof document !== 'undefined') {
+  const code = ".heading-section.svelte-kchm3p.svelte-kchm3p{font-size:20px;padding:24px 15px;display:flex;justify-content:space-between;font-weight:bold}.label.svelte-kchm3p.svelte-kchm3p{cursor:pointer}.month-selector.svelte-kchm3p.svelte-kchm3p{position:absolute;top:75px;left:0;right:0;bottom:0;background-color:var(--background-color);transition:all 300ms;transform:scale(1.2);opacity:0;visibility:hidden;z-index:1;text-align:center}.month-selector.open.svelte-kchm3p.svelte-kchm3p{transform:scale(1);visibility:visible;opacity:1}.month-selector--month.svelte-kchm3p.svelte-kchm3p{width:31.333%;margin:.5%;height:23%;display:inline-block;border:1px solid var(--day-border-color);background-color:var(--day-background-color);opacity:0.2}.month-selector--month.selectable.svelte-kchm3p.svelte-kchm3p{opacity:1}.month-selector--month.selectable.svelte-kchm3p.svelte-kchm3p:hover{cursor:pointer;box-shadow:0px 0px 3px rgba(0,0,0,0.15)}.month-selector--month.selected.svelte-kchm3p.svelte-kchm3p{background:var(--highlight-color);color:#fff}.month-selector--month.svelte-kchm3p.svelte-kchm3p:before{content:' ';display:inline-block;height:100%;vertical-align:middle}.month-selector--month.svelte-kchm3p span.svelte-kchm3p{vertical-align:middle;display:inline-block}.control.svelte-kchm3p.svelte-kchm3p{padding:0 8px;opacity:0.2;transform:translateY(3px)}.control.enabled.svelte-kchm3p.svelte-kchm3p{opacity:1;cursor:pointer}.arrow.svelte-kchm3p.svelte-kchm3p{display:inline-block;width:18px;height:18px;border-style:solid;border-color:#a9a9a9;border-width:0;border-bottom-width:2px;border-right-width:2px}.arrow.right.svelte-kchm3p.svelte-kchm3p{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}.arrow.left.svelte-kchm3p.svelte-kchm3p{transform:rotate(135deg);-webkit-transform:rotate(135deg)}";
+
+  const styleEl = document.createElement("style");
+  const codeEl = document.createTextNode(code);
+  styleEl.type = 'text/css';
+  styleEl.appendChild(codeEl);
+  document.head.appendChild(styleEl);
+}

@@ -1,3 +1,21 @@
+function createCommonjsModule(fn, basedir, module) {
+	return module = {
+		path: basedir,
+		exports: {},
+		require: function (path, base) {
+			return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
+		}
+	}, fn(module, module.exports), module.exports;
+}
+
+function commonjsRequire () {
+	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
+}
+
+var timeUtils_cjs = createCommonjsModule(function (module, exports) {
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
 /**
  * generic function to inject data into token-laden string
  * @param str {String} Required
@@ -86,6 +104,8 @@ const extendDictionary = (conf) =>
       dictionary[key] = conf[key];
     }
   });
+
+const resetDictionary = () => extendDictionary({daysOfWeek,monthsOfYear});
 
 var acceptedDateTokens = [
   { 
@@ -208,4 +228,16 @@ const formatDate = (date,template='#{m}/#{d}/#{Y}') => {
   return template;
 };
 
+/**
+ * Small function for resetting language to English (used in testing).
+ */
+const resetInternationalization = () => resetDictionary();
+
+exports.internationalize = internationalize;
+exports.formatDate = formatDate;
+exports.resetInternationalization = resetInternationalization;
+});
+
+var formatDate = timeUtils_cjs.formatDate;
+var internationalize = timeUtils_cjs.internationalize;
 export { formatDate, internationalize };

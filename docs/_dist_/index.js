@@ -1,7 +1,7 @@
-import __SNOWPACK_ENV__ from '../__snowpack__/env.js';
+import * as __SNOWPACK_ENV__ from '../_snowpack/env.js';
 import.meta.env = __SNOWPACK_ENV__;
 
-import App from './App.js';
+import App from './App.svelte.js';
 
 var app = new App({
   target: document.body,
@@ -9,9 +9,9 @@ var app = new App({
 
 export default app;
 
-if (import.meta.hot) {
-  import.meta.hot.accept();
-  import.meta.hot.dispose(() => {
+if (undefined /* [snowpack] import.meta.hot */ ) {
+  undefined /* [snowpack] import.meta.hot */ .accept();
+  undefined /* [snowpack] import.meta.hot */ .dispose(() => {
     app.$destroy();
   });
 }
