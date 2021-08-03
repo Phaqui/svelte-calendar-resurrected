@@ -150,7 +150,7 @@ upstream comes back alive, I'd be happy to help merge any changes back.
 
 
 
-[demo page]: https://6edesign.github.io/svelte-calendar/
+[demo page]: https://phaqui.github.io/svelte-calendar-resurrected/
 [`timeUtils`]: https://github.com/6eDesign/timeUtils
 [`Date`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
 [Node.js]: https://nodejs.org
