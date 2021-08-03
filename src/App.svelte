@@ -76,7 +76,7 @@
 <blockquote>
   This is a fork of
     <a href="https://github.com/6eDesign/svelte-calendar/issues">
-      6eDesign/svelte-calendar</a>. If the upstream repo comes back alive, I'd
+      6eDesign/svelte-calendar</a>. A great project, but it seems pretty dead. Hence this fork. If upstream comes back alive, I'd
   be happy to help merge back the changes.
 </blockquote>
 
@@ -121,9 +121,6 @@
     <h2>Usage (appearance)</h2>
 
 
-    <h4>Standalone</h4>
-
-    <Datepicker alwaysOpen />
 
 
 
@@ -250,6 +247,24 @@
     </div>
 
 
+    <h4>Standalone</h4>
+
+    <p>
+        It's also possible to use the datepicker in `alwaysOpen` mode, which only
+        draws the datepicker directly, and will also have it take up place in the DOM layout (by default, the datepicker will not take up layout space in the DOM layout when it's open). Simply add an <b>alwaysOpen</b> prop.
+    </p>
+
+
+    <div class="example">
+        <div class="code">
+            <pre><code class='html'>
+&lt;Datepicker alwaysOpen /&gt;
+            </code></pre>
+        </div>
+        <div class="live">
+            <Datepicker alwaysOpen />
+        </div>
+    </div>
 
 
 
@@ -369,6 +384,8 @@
 
     <ul>
         <li>Changing the colors of the color picker (not just the button)</li>
+        <li>"Standalone" or "always open" mode (showing the date picker directly, instead of it being triggered by a button)</li>
+        <li>Can go further up from the year view, to a multi-year view</li>
     </ul>
 </div>
 

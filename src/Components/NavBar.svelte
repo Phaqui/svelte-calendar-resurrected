@@ -11,66 +11,128 @@
   export let canDecrementMonth;
   export let monthsOfYear;
 
-  let monthSelectorOpen = false;
+  // overviewState: if we're looking at
+  // month-view (1), year-view (2) or multi-year-view (3)
+  let overviewState = 1;
   let availableMonths;
+  let availableYears;
 
   $: {
     let isOnLowerBoundary = start.getFullYear() === year;
     let isOnUpperBoundary = end.getFullYear() === year;
-    availableMonths = monthsOfYear.map((m, i) => {
-      return Object.assign({}, {
+    availableMonths = monthsOfYear.map((m, i) => ({
         name: m[0],
-        abbrev: m[1]
-      }, {
+        abbrev: m[1],
         selectable:
           (!isOnLowerBoundary && !isOnUpperBoundary)
           || (
             (!isOnLowerBoundary || i >= start.getMonth())
             && (!isOnUpperBoundary || i <= end.getMonth())
           )
-      });
+      })
+    );
+  }
+
+  $: {
+    let baseYear = year - year % 12;
+    availableYears = Array(12).fill(baseYear).map((yr, i) => {
+      return {
+        year: yr + i,
+        // TODO change: they should not all be selectable
+        selectable: true,
+      };
     });
   }
 
-  function toggleMonthSelectorOpen() {
-    monthSelectorOpen = !monthSelectorOpen;
+  function heading_label_click() {
+    switch (overviewState) {
+      case 1: overviewState = 2; break;
+      case 2: overviewState = 3; break;
+      case 3: overviewState = 3; break;
+    }
   }
 
   function monthSelected(event, { m, i }) {
     event.stopPropagation();
     if (!m.selectable) return;
     dispatch('monthSelected', i);
-    toggleMonthSelectorOpen();
+    overviewState = 1;
   }
+
+  function yearSelected(ev, year) {
+    ev.stopPropagation();
+    if (!year.selectable) return;
+    dispatch('yearSelected', year.year);
+    overviewState = 2;
+  }
+
+  function _go(forward = true, overviewState) {
+    // this formula makes true=1 and false=-1
+    const sign = ~forward + (+forward) * 3;
+    //const incr = sign * ((overviewState - 1) * 12);
+    // TODO this is not correct
+    const incr = sign * overviewState + sign * 12 ** (overviewState - 1);
+    //console.log(incr);
+    dispatch('incrementMonth', incr);
+  }
+
+  function goBack() { _go(false, overviewState); }
+  function goForward() { _go(true, overviewState); }
+
+  function determine_heading_label(overviewState) {
+    if (overviewState === 1) {
+      return `${monthsOfYear[month][0]} ${year}`;
+    } else if (overviewState === 2) {
+      return year;
+    } else if (overviewState === 3) {
+      const from = availableYears[0].year;
+      const to = availableYears[availableYears.length - 1].year;
+      return `${from} - ${to}`;
+    }
+  }
+  $: heading_label = determine_heading_label(overviewState, month, year);
 </script>
 
 <div class="title">
   <div class="heading-section">
     <div class="control" 
       class:enabled={canDecrementMonth}
-      on:click={() => dispatch('incrementMonth', -1)}>
+      on:click={goBack}>
       <i class="arrow left"></i>
     </div>
-    <div class="label" on:click={toggleMonthSelectorOpen}>
-      {monthsOfYear[month][0]} {year}
+    <div class="label" on:click={heading_label_click}>
+      {heading_label}
     </div> 
     <div class="control"
       class:enabled={canIncrementMonth}
-      on:click={() => dispatch('incrementMonth', 1)}>
+      on:click={goForward}>
       <i class="arrow right"></i>
     </div>
   </div>
-  <div class="month-selector" class:open={monthSelectorOpen}>
-    {#each availableMonths as monthDefinition, index}
-      <div 
-        class="month-selector--month" 
-        class:selected={index === month}
-        class:selectable={monthDefinition.selectable}
-        on:click={e => monthSelected(e, { m: monthDefinition, i: index })}
-      >
-        <span>{monthDefinition.abbrev}</span>
-      </div>
-    {/each}
+  <div class="month-selector" class:open={overviewState !== 1}>
+    {#if overviewState === 2}
+      {#each availableMonths as monthDefinition, index}
+        <div 
+          class="month-selector--month" 
+          class:selected={index === month}
+          class:selectable={monthDefinition.selectable}
+          on:click={e => monthSelected(e, { m: monthDefinition, i: index })}
+        >
+          <span>{monthDefinition.abbrev}</span>
+        </div>
+      {/each}
+    {:else if overviewState === 3}
+      {#each availableYears as yearDefinition}
+        <div
+          class="month-selector--month"
+          class:selected={yearDefinition.year === year}
+          class:selectable={yearDefinition.selectable}
+          on:click={e => yearSelected(e, yearDefinition)}
+        >
+          <span>{yearDefinition.year}</span>
+        </div>
+      {/each}
+    {/if}
   </div>
 </div>
 
@@ -91,7 +153,7 @@
     left: 0; 
     right: 0; 
     bottom: 0; 
-    background-color: #fff;
+    background-color: var(--background-color);
     transition: all 300ms; 
     transform: scale(1.2); 
     opacity: 0; 
@@ -109,7 +171,8 @@
     margin: .5%; 
     height: 23%;
     display: inline-block;
-    border: 1px solid #efefef;
+    border: 1px solid var(--day-border-color);
+    background-color: var(--day-background-color);
     opacity: 0.2;
   }
   .month-selector--month.selectable { 

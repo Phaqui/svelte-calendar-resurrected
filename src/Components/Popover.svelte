@@ -20,9 +20,11 @@
   let translateX = 0;
 
   export let open = false;
+  export let alwaysOpen = false;
   export let shrink;
   export let trigger;
   export const close = () => {
+    if (alwaysOpen) return;
     shrink = true;
     once(contentsAnimated, 'animationend', () => {
       shrink = false;
@@ -101,19 +103,26 @@
 
     dispatch('opened');
   };
+
+  $: contentsWrapperStyles = alwaysOpen ? "" :
+    `transform: translate(-50%,-50%) translate(${translateX}px, ${translateY}px)`;
+    
 </script>
 
 <svelte:window bind:innerWidth={w} />
 <div class="sc-popover" bind:this={popover}>
-  <div class="trigger" on:click={doOpen} bind:this={triggerContainer}>
-    <slot name="trigger">
-    </slot>
-  </div>
+  {#if !alwaysOpen}
+    <div class="trigger" on:click={doOpen} bind:this={triggerContainer}>
+      <slot name="trigger">
+      </slot>
+    </div>
+  {/if}
   <div 
     class="contents-wrapper" 
-    class:visible={open}
+    class:always-open={alwaysOpen}
+    class:visible={alwaysOpen || open}
     class:shrink={shrink}
-    style="transform: translate(-50%,-50%) translate({translateX}px, {translateY}px)" 
+    style={contentsWrapperStyles}
     bind:this={contentsWrapper}>
     <div class="contents" bind:this={contentsAnimated}>
       <div class="contents-inner">
@@ -138,13 +147,22 @@
     display: none;
   }
 
+  .contents-wrapper.always-open {
+    position: initial;
+    transform: none;
+  }
+
   .contents { 
     background: #fff;
-    box-shadow: 0px 10px 26px rgba(0,0,0,0.4) ;
+    box-shadow: 0px 10px 26px rgba(0,0,0,0.4);
     opacity: .8; 
     padding-top: 0;
     display: none;
     animation: grow 200ms forwards cubic-bezier(.92,.09,.18,1.05);
+  }
+
+  .contents-wrapper.always-open .contents {
+    box-shadow: none;
   }
 
   .contents-inner { 

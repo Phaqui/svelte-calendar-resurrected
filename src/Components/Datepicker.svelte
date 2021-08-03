@@ -18,6 +18,7 @@
   export let end = new Date(Date.now() + oneYear);
   export let selected = today;
   export let dateChosen = false;
+  export let alwaysOpen = false;
   export let trigger = null;
   export let selectableCallback = null;
   export let weekStart = 0;
@@ -84,7 +85,7 @@
   today.setHours(0, 0, 0, 0);
 
   function assignmentHandler(formatted) {
-    if (!trigger) return;
+    if (!trigger || alwaysOpen) return;
     trigger.innerHTML = formatted;
   }
 
@@ -135,6 +136,11 @@
 
   function changeMonth(selectedMonth) {
     month = selectedMonth;
+    highlighted = new Date(year, month, 1);
+  }
+
+  function changeYear(selectedYear) {
+    year = selectedYear;
     highlighted = new Date(year, month, 1);
   }
 
@@ -275,6 +281,7 @@
     bind:open="{isOpen}"
     bind:shrink="{isClosing}"
     {trigger}
+    {alwaysOpen}
     on:opened="{registerOpen}"
     on:closed="{registerClose}"
   >
@@ -298,6 +305,7 @@
           {end}
           {monthsOfYear}
           on:monthSelected={e => changeMonth(e.detail)}
+          on:yearSelected={e => changeYear(e.detail)}
           on:incrementMonth={e => incrementMonth(e.detail)}
         />
         <div class="legend">
