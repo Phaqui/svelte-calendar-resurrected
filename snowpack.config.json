@@ -10,7 +10,7 @@
           ".js",
           ".css"
         ],
-        "baseUrl": "."
+        "baseUrl": "/svelte-calendar-resurrected"
       }
     ]
   ]

@@ -1,0 +1,42 @@
+{
+  "name": "svelte-calendar-resurrected",
+  "version": "1.0.0-alpha.1",
+  "description": "A simple svelte calendar component. Forked from svelte-calendar",
+  "main": "Datepicker.svelte",
+  "svelte": "Datepicker.svelte",
+  "type": "module",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phaqui/svelte-calendar-resurrected.git"
+  },
+  "keywords": [
+    "svelte",
+    "svelte3",
+    "calendar",
+    "datepicker",
+    "svelte-calendar",
+    "svelte-datepicker"
+  ],
+  "author": "Jonathan Greenemeier (https://6eDesign.github.io/)",
+  "contributors": [
+    "Jonathan Greenemeier <jon@6eDesign.net>",
+    "Anders Lorentsen <Phaqui@gmail.com>",
+    "Antony Jones <antony@beyonk.com>",
+    "Paweł Zmarzły <pawo2500@gmail.com>",
+    "Alexander Zavyalov <whmordred@gmail.com>",
+    "Christopher Pfohl <Christopher.Pfohl@gmail.com>",
+    "David Walsh <dawalsh@gmail.com>",
+    "Hank <hank@henrygd.me>",
+    "R van der Feer <r.vanderfeer@primadeluxe.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phaqui/svelte-calendar-resurrected/issues"
+  },
+  "homepage": "https://phaqui.github.io/svelte-calendar-resurrected/",
+  "dependencies": {
+    "timeUtils": "^2.0.0"
+  }
+}

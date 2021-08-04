@@ -14,7 +14,6 @@
     "access": "public"
   },
   "scripts": {
-    "version": "snowpack --version",
     "dev": "snowpack dev",
     "build": "snowpack build",
     "pretest": "eslint src/**/*.svelte src/**/*.js",
