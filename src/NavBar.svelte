@@ -29,8 +29,7 @@
             (!isOnLowerBoundary || i >= start.getMonth())
             && (!isOnUpperBoundary || i <= end.getMonth())
           )
-      })
-    );
+      }));
   }
 
   $: {
@@ -39,17 +38,18 @@
       return {
         year: yr + i,
         // TODO change: they should not all be selectable
-        selectable: true,
+        selectable: true
       };
     });
   }
-
-  function heading_label_click() {
-    switch (overviewState) {
-      case 1: overviewState = 2; break;
-      case 2: overviewState = 3; break;
-      case 3: overviewState = 3; break;
-    }
+  
+  function headingLabelClick() {
+		/* eslint-disable-next-line */
+		switch (overviewState) {
+			case 1: overviewState = 2; break;
+			case 2: overviewState = 3; break;
+			case 3: overviewState = 3; break;
+		}
   }
 
   function monthSelected(event, { m, i }) {
@@ -66,31 +66,35 @@
     overviewState = 2;
   }
 
+  /* eslint-disable-next-line */
   function _go(forward = true, overviewState) {
-    // this formula makes true=1 and false=-1
-    const sign = ~forward + (+forward) * 3;
-    //const incr = sign * ((overviewState - 1) * 12);
-    // TODO this is not correct
-    const incr = sign * overviewState + sign * 12 ** (overviewState - 1);
-    //console.log(incr);
-    dispatch('incrementMonth', incr);
+		// this formula makes true=1 and false=-1
+		/* eslint-disable-next-line */
+		const sign = ~forward + (+forward) * 3;
+		// const incr = sign * ((overviewState - 1) * 12);
+		// TODO this is not correct
+
+		// For what following line? If disable it -> works fine
+		//  const incr = sign * overviewState + sign * 12 ** (overviewState - 1);
+
+		dispatch('incrementMonth', sign);
   }
 
   function goBack() { _go(false, overviewState); }
   function goForward() { _go(true, overviewState); }
 
-  function determine_heading_label(overviewState) {
+  function determineHeadingLabel(overviewState) {
     if (overviewState === 1) {
       return `${monthsOfYear[month][0]} ${year}`;
-    } else if (overviewState === 2) {
+    } if (overviewState === 2) {
       return year;
-    } else if (overviewState === 3) {
+    } if (overviewState === 3) {
       const from = availableYears[0].year;
       const to = availableYears[availableYears.length - 1].year;
       return `${from} - ${to}`;
     }
   }
-  $: heading_label = determine_heading_label(overviewState, month, year);
+  $: headingLabel = determineHeadingLabel(overviewState, month, year);
 </script>
 
 <div class="title">
@@ -100,8 +104,8 @@
       on:click={goBack}>
       <i class="arrow left"></i>
     </div>
-    <div class="label" on:click={heading_label_click}>
-      {heading_label}
+    <div class="label" on:click={headingLabelClick}>
+      {headingLabel}
     </div> 
     <div class="control"
       class:enabled={canIncrementMonth}
