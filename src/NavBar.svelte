@@ -61,7 +61,7 @@
 
   function yearSelected(ev, year) {
     ev.stopPropagation();
-    if (!year.selectable) return;
+    if (!year.selectable) return;    
     dispatch('yearSelected', year.year);
     overviewState = 2;
   }
@@ -77,7 +77,10 @@
 		// For what following line? If disable it -> works fine
 		//  const incr = sign * overviewState + sign * 12 ** (overviewState - 1);
 
-		dispatch('incrementMonth', sign);
+    if (overviewState == 3) year += sign * 12
+		else{
+      dispatch('incrementMonth', sign);
+    }
   }
 
   function goBack() { _go(false, overviewState); }
