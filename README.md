@@ -129,7 +129,7 @@ This prop allows you to style the div which wraps the Datepicker component.  Thi
 Getting started is as easy as forking, installing, and starting the snowpack dev server.
 
 ```bash
-git clone https://github.com/Phaqui/svelte-calendar.git
+git clone https://github.com/Sanshain/sve-calendar.git
 cd svelte-calendar
 npm install
 npm run dev
