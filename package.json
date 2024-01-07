@@ -1,6 +1,6 @@
 {
   "name": "svelte-calendar",
-  "svelte": "src/Components/Datepicker.svelte",
+  "svelte": "src/Datepicker.svelte",
   "version": "2.0.4",
   "license": "MIT",
   "keywords": [
